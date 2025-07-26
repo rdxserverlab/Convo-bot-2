@@ -47,11 +47,11 @@ module.exports.run = async function({ api, event, Users, Threads }) {
     hours > 10 && hours <= 12 ? "𝘼𝙛𝙩𝙚𝙧𝙣𝙤𝙤𝙣" :
     hours > 12 && hours <= 18 ? "𝙀𝙫𝙚𝙣𝙞𝙣𝙜" : "𝙉𝙞𝙜𝙝𝙩").replace(/\{time}/g, time);  
 
-	const randomPath = readdirSync(join(__dirname, "cache", "leaveGif", "randomgif"));
+	const randomPath = readdirSync(join(__dirname, "cache", "leaveGif", "randogif"));
 
 	if (existsSync(pathGif)) formPush = { body: msg, attachment: createReadStream(pathGif) }
 	else if (randomPath.length != 0) {
-		const pathRandom = join(__dirname, "cache", "leaveGif", "randomgif",`${randomPath[Math.floor(Math.random() * randomPath.length)]}`);
+		const pathRandom = join(__dirname, "cache", "leaveGif", "randgif",`${randomPath[Math.floor(Math.random() * randomPath.length)]}`);
 		formPush = { body: msg, attachment: createReadStream(pathRandom) }
 	}
 	else formPush = { body: msg }
