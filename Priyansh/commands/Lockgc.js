@@ -40,22 +40,22 @@ module.exports.run = async function ({ api, event, args }) {
         image: imagePath
       };
 
-      return api.sendMessage(`🔒`, threadID);
+      return api.sendMessage(`🔒 Group ka name aur photo lock kar diye gaye hain!\nAgar koi change karega to main wapas reset kar dunga.`, threadID);
     } catch (err) {
       console.log(err);
-      return api.sendMessage("⚠️", threadID);
+      return api.sendMessage("⚠️ Lock fail ho gaya. Kuch masla ho gaya hai!", threadID);
     }
   }
 
   if (args[0].toLowerCase() === "off") {
-    if (!lockData[threadID]) return api.sendMessage("⚠️", threadID);
+    if (!lockData[threadID]) return api.sendMessage("⚠️ Group pehle hi unlock hai!", threadID);
 
     if (lockData[threadID].image) fs.unlinkSync(lockData[threadID].image);
     delete lockData[threadID];
-    return api.sendMessage("✅", threadID);
+    return api.sendMessage("✅ Group ka name aur photo unlock kar diya gaya hai.", threadID);
   }
 
-  return api.sendMessage("❌", threadID);
+  return api.sendMessage("❌ Ghalat option! Istemaal karein: lockgroup on/off", threadID);
 };
 
 module.exports.handleEvent = async function ({ api, event }) {
@@ -72,7 +72,7 @@ module.exports.handleEvent = async function ({ api, event }) {
     // Name check karo
     if (currentName !== lockedName) {
       await api.setTitle(lockedName, threadID);
-      api.sendMessage(`⚠️"${lockedName}" `, threadID);
+      api.sendMessage(`⚠️ Group ka name change kiya gaya tha. Wapas "${lockedName}" set kar diya gaya hai.`, threadID);
     }
 
     // Photo check karo
@@ -84,7 +84,7 @@ module.exports.handleEvent = async function ({ api, event }) {
 
       if (!currentBuffer.equals(lockedBuffer)) {
         await api.changeGroupImage(fs.createReadStream(lockedImagePath), threadID);
-        api.sendMessage(`🖼️ `, threadID);
+        api.sendMessage(`🖼️ Group ki photo change kar di gayi thi. Wapas lock wali photo laga di gayi hai.`, threadID);
       }
     }
   } catch (err) {
