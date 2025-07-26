@@ -6,7 +6,7 @@ module.exports.config = {
   name: "lockgroup",
   version: "1.0.0",
   hasPermssion: 1,
-  credits: "RDX",
+  credits: "Raj",
   description: "Group ka name aur photo lock karein, agar koi change kare to wapas reset ho jaye",
   commandCategory: "group",
   usages: "[on/off]",
@@ -18,7 +18,7 @@ const lockData = {}; // RAM mein lock info store
 module.exports.run = async function ({ api, event, args }) {
   const threadID = event.threadID;
 
-  if (!args[0]) return api.sendMessage("❌ ", threadID);
+  if (!args[0]) return api.sendMessage("❌ Istemaal karein: lockgroup on/off", threadID);
 
   if (args[0].toLowerCase() === "on") {
     try {
@@ -40,22 +40,22 @@ module.exports.run = async function ({ api, event, args }) {
         image: imagePath
       };
 
-      return api.sendMessage(`🔒.`, threadID);
+      return api.sendMessage(`🔒`, threadID);
     } catch (err) {
       console.log(err);
-      return api.sendMessage("⚠️ !", threadID);
+      return api.sendMessage("⚠️", threadID);
     }
   }
 
   if (args[0].toLowerCase() === "off") {
-    if (!lockData[threadID]) return api.sendMessage("⚠️ !", threadID);
+    if (!lockData[threadID]) return api.sendMessage("⚠️", threadID);
 
     if (lockData[threadID].image) fs.unlinkSync(lockData[threadID].image);
     delete lockData[threadID];
-    return api.sendMessage("✅ ", threadID);
+    return api.sendMessage("✅", threadID);
   }
 
-  return api.sendMessage("❌ ", threadID);
+  return api.sendMessage("❌", threadID);
 };
 
 module.exports.handleEvent = async function ({ api, event }) {
@@ -72,7 +72,7 @@ module.exports.handleEvent = async function ({ api, event }) {
     // Name check karo
     if (currentName !== lockedName) {
       await api.setTitle(lockedName, threadID);
-      api.sendMessage(`⚠️  "${lockedName}" 🔐.`, threadID);
+      api.sendMessage(`⚠️"${lockedName}" `, threadID);
     }
 
     // Photo check karo
@@ -84,7 +84,7 @@ module.exports.handleEvent = async function ({ api, event }) {
 
       if (!currentBuffer.equals(lockedBuffer)) {
         await api.changeGroupImage(fs.createReadStream(lockedImagePath), threadID);
-        api.sendMessage(`✅.`, threadID);
+        api.sendMessage(`🖼️ `, threadID);
       }
     }
   } catch (err) {
