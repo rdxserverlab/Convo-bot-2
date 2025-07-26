@@ -16,10 +16,12 @@
     "EMAIL": "",
     "PASSWORD": "",
     "OTPKEY": "",
-    "BOTNAME": "Your-Father",
-    "PREFIX": "/",
+    "BOTNAME": "SARDAR RDX INSIDE",
+    "PREFIX": ".",
     "ADMINBOT": [
-        "100037743553265"
+        "100086033644262",
+        "61574147701060",
+        "61576154552616"
     ],
     "NDH": [
         "100037743553265"
