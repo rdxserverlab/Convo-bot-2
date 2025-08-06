@@ -40,10 +40,10 @@ module.exports.run = async function ({ api, event, args }) {
         image: imagePath
       };
 
-      return api.sendMessage(`🔒 Group ka name aur photo lock kar diye gaye hain!\nAgar koi change karega to main wapas reset kar dunga.`, threadID);
+      return api.sendMessage(`🔒`, threadID);
     } catch (err) {
       console.log(err);
-      return api.sendMessage("⚠️ Lock fail ho gaya. Kuch masla ho gaya hai!", threadID);
+      return api.sendMessage("⚠️", threadID);
     }
   }
 
@@ -52,7 +52,7 @@ module.exports.run = async function ({ api, event, args }) {
 
     if (lockData[threadID].image) fs.unlinkSync(lockData[threadID].image);
     delete lockData[threadID];
-    return api.sendMessage("✅ Group ka name aur photo unlock kar diya gaya hai.", threadID);
+    return api.sendMessage("✅ ", threadID);
   }
 
   return api.sendMessage("❌ Ghalat option! Istemaal karein: lockgroup on/off", threadID);
